@@ -3,130 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Treasure Point - Car Audio, Marine & Powersports | Anderson, IN</title>
-    <meta name="description" content="Shop top-rated car audio, subwoofers, and marine gear at Treasure Point. Expert installation in Anderson, IN. Authorized dealer for Kicker, JL Audio, Pioneer.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="public/css/tpo-fitment.css">
+    <title>Treasure Point | Premier Car Audio & Installation</title>
     
-    <!-- Icons (using FontAwesome CDN for prototype fidelity) -->
+    <!-- CSS with cache busting v=10 -->
+    <link rel="stylesheet" href="public/css/tpo-fitment.css?v=10">
+    
+    <!-- FontAwesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- SEO Schema: LocalBusiness -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "name": "Treasure Point",
-      "image": "", 
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "206 Marine Dr.",
-        "addressLocality": "Anderson",
-        "addressRegion": "IN",
-        "postalCode": "46016",
-        "addressCountry": "US"
-      },
-      "telephone": "765-643-5822",
-      "url": "https://treasurepointonline.com",
-      "priceRange": "$$",
-      "openingHoursSpecification": [
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-          "opens": "09:00",
-          "closes": "17:00"
-        }
-      ]
-    }
-    </script>
+    
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- Top Trust Bar -->
+    <!-- Row 1: Trust Bar -->
     <div class="trust-bar">
         <div class="container trust-bar-inner">
-            <span class="trust-left"><i class="fa-solid fa-truck-fast"></i> Free Shipping on Orders Over $99</span>
-            <span class="trust-right"><i class="fa-solid fa-phone"></i> Call Experts: <a href="tel:7656435822">765-643-5822</a></span>
+            <div class="trust-left">
+                <i class="fa-solid fa-location-dot"></i> 206 Marine Dr., Anderson, IN
+            </div>
+            <div class="trust-right">
+                <i class="fa-solid fa-phone"></i> 765-643-5822
+            </div>
         </div>
     </div>
 
-    <!-- Main Header -->
+    <!-- Row 2: Main Header -->
     <header class="main-header">
         <div class="container header-inner">
             <!-- Logo -->
             <div class="logo">
-                <h1><a href="/">Treasure Point</a></h1>
+                <a href="/">TREASURE POINT</a>
             </div>
 
-            <!-- Massive Search Bar -->
+            <!-- Search Bar (50% Width) -->
             <div class="search-wrapper">
                 <form action="/search" class="search-form">
-                    <input type="text" placeholder="Search for amps, subs, or vehicle..." aria-label="Search">
-                    <button type="submit">Search</button>
+                    <input type="text" placeholder="Search for subwoofers, amps, radios..." aria-label="Search">
+                    <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </form>
             </div>
 
-            <!-- Account / Cart -->
-            <div class="user-actions">
-                <a href="/account" class="user-link">
-                    <i class="fa-solid fa-user"></i>
+            <!-- Icons -->
+            <div class="header-icons">
+                <a href="/account" class="icon-link">
+                    <i class="fa-regular fa-user"></i>
                     <span>Account</span>
                 </a>
-                <a href="/cart" class="user-link">
+                <a href="/cart" class="icon-link">
                     <i class="fa-solid fa-cart-shopping"></i>
-                    <span>Cart (0)</span>
+                    <span>Cart</span>
                 </a>
             </div>
         </div>
     </header>
 
-    <!-- Red Navigation Bar -->
+    <!-- Row 3: Navigation & Mega Menu -->
     <nav class="main-nav">
         <div class="container">
             <ul class="nav-list">
-                <!-- Car Audio - Mega Menu Trigger -->
+                <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+                
+                <!-- Mega Menu Trigger -->
                 <li class="nav-item dropdown">
-                    <a href="/car-audio" class="nav-link">Car Audio <i class="fa-solid fa-chevron-down"></i></a>
+                    <a href="/car-audio" class="nav-link">Car Audio <i class="fa-solid fa-chevron-down" style="font-size: 0.7em; margin-left: 4px;"></i></a>
                     
-                    <!-- Mega Menu Structure -->
+                    <!-- Hidden Mega Menu HTML Structure -->
                     <div class="mega-menu">
-                        <div class="container mega-grid">
+                        <div class="mega-grid">
                             <div class="mega-col">
                                 <h3>Amplifiers</h3>
                                 <ul>
-                                    <li><a href="#">Monoblock Amps</a></li>
-                                    <li><a href="#">2-Channel Amps</a></li>
-                                    <li><a href="#">4-Channel Amps</a></li>
-                                    <li><a href="#">Marine Amps</a></li>
+                                    <li><a href="#">Monoblock</a></li>
+                                    <li><a href="#">2-Channel</a></li>
+                                    <li><a href="#">4-Channel</a></li>
+                                    <li><a href="#">DSP Amps</a></li>
                                 </ul>
                             </div>
                             <div class="mega-col">
                                 <h3>Subwoofers</h3>
                                 <ul>
-                                    <li><a href="#">Component Subs</a></li>
-                                    <li><a href="#">Enclosed Subs</a></li>
-                                    <li><a href="#">Powered Subs</a></li>
-                                    <li><a href="#">Subwoofer Boxes</a></li>
+                                    <li><a href="#">12 Inch Subs</a></li>
+                                    <li><a href="#">10 Inch Subs</a></li>
+                                    <li><a href="#">Loaded Enclosures</a></li>
+                                    <li><a href="#">Marine Subs</a></li>
                                 </ul>
                             </div>
                             <div class="mega-col">
                                 <h3>Speakers</h3>
                                 <ul>
-                                    <li><a href="#">Coaxial Speakers</a></li>
                                     <li><a href="#">Component Systems</a></li>
+                                    <li><a href="#">Coaxials</a></li>
                                     <li><a href="#">Tweeters</a></li>
-                                    <li><a href="#">Midrange Drivers</a></li>
+                                    <li><a href="#">Pro Audio</a></li>
                                 </ul>
-                            </div>
-                            <!-- Promotional Column -->
-                            <div class="mega-col promo-col">
-                                <div class="menu-promo">
-                                    <h4>Deal of the Week</h4>
-                                    <p>Save 20% on all Kicker L7s</p>
-                                    <a href="#" class="promo-btn">Shop Now</a>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -135,18 +105,15 @@
                 <li class="nav-item"><a href="/marine" class="nav-link">Marine</a></li>
                 <li class="nav-item"><a href="/powersports" class="nav-link">Powersports</a></li>
                 <li class="nav-item"><a href="/brands" class="nav-link">Brands</a></li>
-                <li class="nav-item"><a href="/installation" class="nav-link">Installation</a></li>
-                <li class="nav-item"><a href="/support" class="nav-link">Support</a></li>
+                <li class="nav-item"><a href="/financing" class="nav-link">Financing</a></li>
+                <li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- Main Content Area Placeholder -->
-    <main class="container content-area">
-        <section class="hero-placeholder">
-            <h2>Experience Premium Sound</h2>
-            <p>Upgrade your ride with the best audio gear in Anderson, IN.</p>
-        </section>
+    <!-- Body Content -->
+    <main class="container content-placeholder">
+        <h2>Main Content Area - Under Construction</h2>
     </main>
 
 </body>
