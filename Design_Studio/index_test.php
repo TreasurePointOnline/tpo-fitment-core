@@ -1,0 +1,1 @@
+<?php echo "<h1>I AM THE NEW INDEX</h1>"; ?>
