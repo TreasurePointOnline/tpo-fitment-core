@@ -1,0 +1,72 @@
+/* Theme Name: Astra Child
+Template: astra
+*/
+/* =========================================
+   TREASURE POINT DARK THEME - OG PARTNER EDITION
+   ========================================= */
+
+/* GLOBAL COLORS */
+:root {
+    --tpo-black: #0a0a0a;
+    --tpo-dark-grey: #141414;
+    --tpo-red: #d32f2f;
+    --tpo-white: #ffffff;
+    --tpo-light-grey: #e0e0e0;
+}
+
+/* SITE BACKGROUND */
+body, html, .site-content, .ast-container {
+    background-color: var(--tpo-black) !important;
+    color: var(--tpo-white);
+}
+
+/* HEADINGS */
+h1, h2, h3, h4, h5, h6, .entry-title, .widget-title {
+    color: var(--tpo-white) !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* HEADER (Black & Red) */
+.ast-main-header-wrap {
+    background-color: var(--tpo-dark-grey) !important;
+    border-bottom: 3px solid var(--tpo-red);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+}
+.site-title a, .menu-link, .ast-header-account-wrap a {
+    color: var(--tpo-white) !important;
+}
+
+/* BUTTONS */
+button, .button, .wp-block-button__link, .single_add_to_cart_button {
+    background-color: var(--tpo-red) !important;
+    color: var(--tpo-white) !important;
+    border-radius: 4px !important;
+    font-weight: 800 !important;
+    text-transform: uppercase;
+    border: none !important;
+}
+button:hover, .button:hover {
+    background-color: #ff0000 !important;
+    transform: translateY(-2px);
+}
+
+/* PRODUCT CARDS */
+.woocommerce ul.products li.product {
+    background-color: var(--tpo-dark-grey) !important;
+    border: 1px solid #333;
+    border-radius: 6px;
+    padding: 15px;
+}
+.woocommerce ul.products li.product:hover {
+    border-color: var(--tpo-red);
+    transform: translateY(-5px);
+}
+.woocommerce-loop-product__title {
+    color: var(--tpo-white) !important;
+}
+.price {
+    color: var(--tpo-red) !important;
+    font-weight: bold;
+    font-size: 1.2em;
+}

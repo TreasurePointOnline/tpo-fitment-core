@@ -1,0 +1,1 @@
+HELLO! The website lives in the ROOT folder (public_html).

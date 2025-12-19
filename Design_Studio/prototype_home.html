@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Treasure Point - Local Prototype</title>
+    <style>
+        /* === 1. GLOBAL RESET === */
+        body { margin: 0; padding: 0; background-color: #0a0a0a; color: white; font-family: sans-serif; height: 2000px; /* Tall to test scrolling */ }
+        
+        /* === 2. THE STICKY NAV BAR (The Big Dog Feature) === */
+        .og-nav {
+            background-color: #141414;
+            border-bottom: 3px solid #d32f2f; /* Racing Red Line */
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* Adjusted to allow search to grow */
+            padding: 0 40px;
+            height: 80px;
+            
+            /* STICKY LOGIC */
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.7);
+        }
+
+        /* LOGO AREA */
+        .og-logo { font-size: 24px; font-weight: 900; text-transform: uppercase; color: white; text-decoration: none; }
+        .og-logo span { color: #d32f2f; }
+
+        /* SEARCH BAR */
+        .og-search {
+            display: flex;
+            flex-grow: 1; /* Allow to take available space */
+            max-width: 600px; /* Limit width */
+            margin: 0 30px; /* Spacing from other elements */
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .og-search input {
+            border: none;
+            padding: 10px 15px;
+            flex-grow: 1;
+            background-color: #222;
+            color: white;
+            outline: none;
+            font-size: 14px;
+        }
+        .og-search input::placeholder {
+            color: #bbb;
+        }
+        .og-search button {
+            background-color: #d32f2f;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .og-search button:hover {
+            background-color: #ff0000;
+        }
+
+        /* MENU LINKS */
+        .og-menu { display: flex; gap: 30px; }
+        .og-menu a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 14px;
+            transition: color 0.3s ease;
+            padding: 28px 0; /* Tall click area */
+        }
+        
+        /* HOVER EFFECT (The "Pop") */
+        .og-menu a:hover {
+            color: #d32f2f;
+            border-bottom: 3px solid #d32f2f; /* Underline on hover */
+        }
+
+        /* === 3. CONTENT PREVIEW (Hero + Products) === */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1615900119312-2acd3a71f3aa?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            text-align: center;
+            padding: 100px 20px;
+            border-bottom: 2px solid #333;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .product-card {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            padding: 15px;
+            text-align: center;
+        }
+        .product-card img { width: 100%; height: auto; margin-bottom: 15px; }
+        .product-card h3 { font-size: 16px; margin: 10px 0; }
+        .price { color: #d32f2f; font-weight: bold; font-size: 18px; }
+        .btn { background: #d32f2f; color: white; border: none; padding: 10px 20px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <nav class="og-nav">
+        <a href="#" class="og-logo">Treasure <span>Point</span></a>
+        
+        <div class="og-search">
+            <input type="text" placeholder="Search products...">
+            <button>🔍</button>
+        </div>
+
+        <div class="og-menu">
+            <a href="#">Amplifiers</a>
+            <a href="#">Subwoofers</a>
+            <a href="#">Speakers</a>
+            <a href="#">Wiring</a>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <h1>UNLEASH YOUR SOUND</h1>
+        <p>Official OG Audio Partner</p>
+    </div>
+
+    <div class="product-grid">
+        <div class="product-card">
+            <img src="https://placehold.co/300x300/222/999?text=Amp+1" alt="Amp">
+            <h3>Monoblock 1500W</h3>
+            <div class="price">$299.99</div>
+            <button class="btn">ADD TO CART</button>
+        </div>
+        <div class="product-card">
+            <img src="https://placehold.co/300x300/222/999?text=Sub+1" alt="Sub">
+            <h3>12-inch Subwoofer</h3>
+            <div class="price">$149.99</div>
+            <button class="btn">ADD TO CART</button>
+        </div>
+        <div class="product-card">
+            <img src="https://placehold.co/300x300/222/999?text=Speaker" alt="Spk">
+            <h3>Component Set 6.5"</h3>
+            <div class="price">$89.99</div>
+            <button class="btn">ADD TO CART</button>
+        </div>
+        <div class="product-card">
+            <img src="https://placehold.co/300x300/222/999?text=Wire" alt="Wire">
+            <h3>0 Gauge Kit</h3>
+            <div class="price">$59.99</div>
+            <button class="btn">ADD TO CART</button>
+        </div>
+    </div>
+
+</body>
+</html>

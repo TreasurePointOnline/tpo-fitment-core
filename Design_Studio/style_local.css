@@ -1,0 +1,53 @@
+/* === TREASURE POINT FIXED THEME === */
+
+/* GLOBAL DARK MODE */
+body, html, .site-content, .ast-container {
+    background-color: #0a0a0a !important;
+    color: #ffffff !important;
+}
+
+/* === THE HEADER FIXER === */
+/* 1. Force the container to be a row (Logo Left | Menu Right) */
+.ast-main-header-wrap .ast-primary-header-bar .site-primary-header-wrap {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    height: 80px !important;
+}
+
+/* 2. Background Color & Red Line */
+.ast-main-header-wrap {
+    background-color: #141414 !important;
+    border-bottom: 3px solid #d32f2f !important;
+    position: sticky !important;
+    top: 0;
+    z-index: 99999; /* Always on top */
+}
+
+/* 3. The Menu Links (Force White & Uppercase) */
+.main-header-menu .menu-item a {
+    color: #ffffff !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    font-size: 14px !important;
+    padding: 0 15px !important;
+}
+
+/* 4. Hover Effect (The Red Pop) */
+.main-header-menu .menu-item a:hover {
+    color: #d32f2f !important;
+}
+
+/* 5. Mobile Menu Fix (Hamburger Icon) */
+.ast-mobile-menu-trigger-fill {
+    fill: #d32f2f !important; /* Red Icon */
+}
+
+/* === PRODUCT GRID STYLES === */
+.woocommerce ul.products li.product {
+    background-color: #1a1a1a !important;
+    border: 1px solid #333;
+    padding: 15px;
+}
+.woocommerce-loop-product__title { color: white !important; }
+.price { color: #d32f2f !important; font-weight: bold; }

@@ -1,0 +1,40 @@
+/*
+Theme Name: Astra
+Theme URI: https://wpastra.com/
+Author: Brainstorm Force
+Author URI: https://wpastra.com/about/
+Description: Astra is Fast, Fully Customizable & Beautiful WordPress Theme.
+Version: 4.8.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: astra
+*/
+
+/* === TREASURE POINT DARK MODE (Restored) === */
+
+/* GLOBAL FIXES */
+body, .site-content, .ast-container {
+    background-color: #0a0a0a !important;
+    color: #ffffff !important;
+}
+
+/* HEADER FIXES */
+.ast-main-header-wrap {
+    background-color: #141414 !important;
+    border-bottom: 3px solid #d32f2f !important;
+}
+.main-header-menu .menu-item a {
+    color: #ffffff !important;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+.main-header-menu .menu-item a:hover {
+    color: #d32f2f !important;
+}
+
+/* WOOCOMMERCE CARDS */
+.woocommerce ul.products li.product {
+    background-color: #1a1a1a !important;
+    border: 1px solid #333;
+}
+.price { color: #d32f2f !important; }
