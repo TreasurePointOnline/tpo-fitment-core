@@ -5,25 +5,21 @@ on:
       - main
 jobs:
   web-deploy:
-    name: 🎉 Deploy
+    name: 🎉 Deploy Theme
     runs-on: ubuntu-latest
     steps:
     - name: 🚚 Get latest code
       uses: actions/checkout@v3
 
-    - name: 📂 Sync files
+    - name: 📂 Sync Theme Files
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
         server: ${{ secrets.FTP_HOST }}
         username: ${{ secrets.FTP_USER }}
         password: ${{ secrets.FTP_PASS }}
-        server-dir: public_html/
+        local-dir: astra-child/
+        server-dir: public_html/wp-content/themes/astra-child/
         exclude: |
           **/.git*
           **/.git*/**
           **/node_modules/**
-          treasure-point-agent/**
-          Design_Studio/**
-          *.sql
-          .env
-          *.zip
