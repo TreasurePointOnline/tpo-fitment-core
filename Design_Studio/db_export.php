@@ -53,7 +53,11 @@ try {
                 $sql_content .= "INSERT INTO `{$table}` VALUES(";
                 $values = array();
                 foreach ($row as $value) {
-                    $values[] = $pdo->quote($value);
+                    if (is_null($value)) {
+                        $values[] = "NULL";
+                    } else {
+                        $values[] = $pdo->quote($value);
+                    }
                 }
                 $sql_content .= implode(',', $values) . ");\n";
             }

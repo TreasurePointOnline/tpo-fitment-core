@@ -1,12 +1,31 @@
+# Sensitive Info
+.env
+.thread_id
+shared_brain.json
+*.key
+*.pem
 
-backend/.env
+# Database Backups
+*.sql
+live_deployment.sql
+latest_local_db.sql
 
-__pycache__/
+# Large Folders
+node_modules/
+dist/
+build/
+.aider*
 
-*.db
+# Snapshots
+tpo_snapshot_latest/
+astra_child_backup/
 
-backend/.env
+# Logs
+error_log
+debug.log
+server_error_log.txt
+debug_log.txt
 
-__pycache__/
-
-*.db
+# OS Files
+.DS_Store
+Thumbs.db

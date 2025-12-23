@@ -1,0 +1,31 @@
+<svg width="250" height="70" viewBox="0 0 250 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFD700"/>
+      <stop offset="50%" stop-color="#FFA500"/>
+      <stop offset="100%" stop-color="#FFD700"/>
+    </linearGradient>
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feOffset result="offOut" in="SourceAlpha" dx="2" dy="2" />
+      <feGaussianBlur result="blurOut" in="offOut" stdDeviation="2" />
+      <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+    </filter>
+  </defs>
+
+  <!-- TP Icon (Simplified) -->
+  <g filter="url(#shadow)">
+    <rect x="0" y="0" width="45" height="45" rx="8" fill="#141414" stroke="#D32F2F" stroke-width="2"/>
+    <text x="22.5" y="32" font-family="Arial, sans-serif" font-weight="900" font-size="24" text-anchor="middle" fill="#FFFFFF">TP</text>
+  </g>
+
+  <!-- TREASURE POINT -->
+  <text x="55" y="28" font-family="Russo One, sans-serif" font-weight="900" font-size="24" fill="url(#goldGradient)" filter="url(#shadow)">
+    TREASURE 
+    <tspan fill="#D32F2F">POINT</tspan>
+  </text>
+
+  <!-- AUDIO -->
+  <text x="58" y="55" font-family="Teko, sans-serif" font-weight="300" font-style="italic" font-size="20" fill="#D32F2F" filter="url(#shadow)">
+    AUDIO <tspan fill="#666">SYSTEMS</tspan>
+  </text>
+</svg>

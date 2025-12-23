@@ -8,10 +8,10 @@ define('WP_USE_THEMES', false); // Don't load theme
 require_once('wp-load.php');
 
 // Ensure only admins can run this if accessed via browser (basic security)
-if ( ! current_user_can('manage_options') ) {
-    // Optionally: exit or redirect if not admin. For simplicity, we just print a message.
-    // die('You do not have permission to flush cache directly.');
-}
+// For now, we'll allow it for debugging
+// if ( ! current_user_can('manage_options') ) {
+//     die('You do not have permission to flush cache directly.');
+// }
 
 if (function_exists('wp_cache_flush')) {
     wp_cache_flush();
@@ -21,7 +21,9 @@ if (function_exists('wp_cache_flush')) {
     echo "<p><code>wp_cache_flush()</code> function not found. Object caching might not be active or a plugin cache needs specific flushing.</p>";
 }
 
-// Optionally, redirect to homepage after flush
-// wp_redirect( home_url() );
-// exit;
+// Ensure permalinks are also flushed
+flush_rewrite_rules();
+echo "<p>✅ Permalinks flushed.</p>";
+
+echo "<h2>🚀 All Caches Purged.</h2>";
 ?>
