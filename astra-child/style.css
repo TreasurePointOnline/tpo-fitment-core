@@ -1,0 +1,196 @@
+/*
+Theme Name: Astra Child Theme
+Theme URI: https://treasurepointonline.com
+Description: My custom Astra Child Theme
+Author: Treasure Point
+Author URI: https://treasurepointonline.com
+Template: astra
+Version: 1.0.0
+Text Domain: astra-child
+*/
+
+/* --- GLOBAL STYLES --- */
+body, html, #page {
+    background-color: #0a0a0a !important; /* Dark background */
+    color: #ffffff !important; /* White text */
+    font-family: 'Inter', sans-serif !important;
+    overflow-x: hidden;
+}
+
+/* --- ASTRA SPECIFIC OVERRIDES --- */
+.main-header-bar, #ast-desktop-header, .ast-primary-header-bar, #site-navigation, #ast-header-custom-item-inside { display: none !important; }
+.entry-title, .page-header { display: none !important; }
+
+/* Global Header Container */
+.tpo-header-wrapper {
+    background-color: #141414;
+    border-bottom: 3px solid #D32F2F;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+}
+
+/* --- MAIN HEADER BAR (LOGO | SEARCH | ACTIONS) --- */
+.tpo-main-header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 10px 20px;
+    gap: 20px;
+}
+
+/* Logo */
+.tpo-logo-area { flex-shrink: 0; }
+.tpo-brand-link { display: flex; align-items: center; text-decoration: none; }
+.tpo-logo-svg { height: 55px; width: auto; }
+
+/* Search */
+.tpo-search-area { flex-grow: 1; max-width: 600px; position: relative; }
+.tpo-search-form { display: flex; width: 100%; }
+.tpo-search-input {
+    flex-grow: 1; padding: 10px 20px; border-radius: 50px;
+    background: #222; border: 1px solid #444; color: white;
+    outline: none; font-size: 15px;
+}
+.tpo-search-btn {
+    position: absolute; right: 5px; top: 50%; transform: translateY(-50%);
+    background: #D32F2F; color: white; border-radius: 50px;
+    padding: 8px 15px; border: none; cursor: pointer; font-size: 15px;
+}
+
+/* Actions */
+.tpo-actions-area { display: flex; gap: 20px; flex-shrink: 0; }
+.tpo-action-btn {
+    display: flex; flex-direction: column; align-items: center; text-decoration: none;
+    color: #ccc; font-size: 11px; font-weight: 600; text-transform: uppercase;
+    transition: color 0.2s;
+}
+.tpo-action-btn:hover { color: #ffffff; }
+.tpo-icon { font-size: 20px; margin-bottom: 2px; }
+
+/* --- SECONDARY NAV (DYNAMIC DROPDOWNS) --- */
+.tpo-secondary-nav-bar {
+    background-color: #1a1a1a;
+    border-top: 1px solid #333;
+    padding: 0;
+}
+.tpo-nav-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+/* Reset List Styles */
+.tpo-nav-list, .tpo-nav-list ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+/* Top Level Items */
+.tpo-nav-list > li > a {
+    display: block;
+    padding: 15px 25px;
+    color: white;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 14px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+/* Hover State (Top Level) */
+.tpo-nav-list > li:hover > a {
+    background-color: #D32F2F;
+    color: white;
+}
+
+/* --- DROPDOWNS (Level 2: Brands) --- */
+.tpo-nav-list li {
+    position: relative; /* Context for dropdown */
+}
+
+/* Sub Menu Hidden by default */
+.tpo-nav-list ul.sub-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #1a1a1a;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    min-width: 220px;
+    flex-direction: column; /* Vertical list */
+    z-index: 10000;
+    border-top: 2px solid #D32F2F;
+}
+
+/* Show Sub Menu on Hover */
+.tpo-nav-list li:hover > ul.sub-menu {
+    display: flex;
+}
+
+/* Sub Menu Links */
+.tpo-nav-list ul.sub-menu li a {
+    display: block;
+    padding: 12px 20px;
+    color: #e0e0e0;
+    text-decoration: none;
+    font-size: 13px;
+    border-bottom: 1px solid #333;
+    transition: background 0.2s;
+    text-transform: capitalize; /* Normal case for brands */
+}
+
+.tpo-nav-list ul.sub-menu li:last-child a {
+    border-bottom: none;
+}
+
+/* Sub Menu Hover */
+.tpo-nav-list ul.sub-menu li a:hover {
+    background-color: #333;
+    color: #fff;
+    padding-left: 25px; /* Slight movement effect */
+}
+
+/* --- FLYOUTS (Level 3: Series/Products) --- */
+.tpo-nav-list ul.sub-menu ul.sub-menu {
+    top: 0;
+    left: 100%; /* Move to right */
+    margin-top: -2px; /* Align with top border */
+}
+
+/* Arrow indicator for items with children */
+.has-children > a::after {
+    content: ' \25B8'; /* Right arrow */
+    float: right;
+    font-size: 10px;
+    margin-left: 10px;
+}
+/* Down arrow for top level */
+.tpo-nav-list > .has-children > a::after {
+    content: ' \25BE'; /* Down arrow */
+}
+
+
+/* --- WOOCOMMERCE --- */
+.woocommerce ul.products li.product {
+    background: #1a1a1a !important; border: 1px solid #333 !important;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.woocommerce-loop-product__title { color: white !important; font-size: 16px; }
+.price { color: #D32F2F !important; font-weight: bold; font-size: 1.1em; }
+
+/* --- FOOTER --- */
+#colophon {
+    background-color: #050505;
+    border-top: 1px solid #333;
+    padding: 20px;
+    text-align: center;
+    color: #888;
+}

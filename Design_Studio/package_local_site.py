@@ -5,7 +5,7 @@ import datetime
 
 # --- CONFIGURATION ---
 # Path to your LocalWP site folder (Update this to match your machine!)
-LOCAL_SITE_PATH = "C:\\Users\\Administrator\\Local Sites\\treasure-point-online"
+LOCAL_SITE_PATH = "C:\\Users\\Administrator\\Local Sites\\treasure-point-local"
 PROJECT_ROOT = "C:\\Users\\Administrator\\tpo-fitment-core"
 
 def package_site():
