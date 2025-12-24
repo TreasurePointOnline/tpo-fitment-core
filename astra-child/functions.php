@@ -16,7 +16,7 @@ function astra_child_enqueue_styles() {
 add_action( 'wp_enqueue_scripts', 'astra_child_enqueue_styles' );
 
 /**
- * Register Custom Menus (Optional now, but good to keep)
+ * Register Custom Menus
  */
 function tpo_register_menus() {
     register_nav_menus( array( 'secondary_menu' => __( 'Secondary Header Menu', 'astra-child' ) ) );
@@ -25,25 +25,28 @@ add_action( 'init', 'tpo_register_menus' );
 
 
 /**
+ * 🚀 EMERGENCY FORCE: This bypasses Astra Builder and ensures the AI Header runs.
+ */
+add_filter( 'astra_is_header_footer_builder_active', '__return_false', 999 );
+
+
+/**
  * HELPER: Recursive function to build menu items
  */
 function tpo_build_nav_tree( $parent_id ) {
-    // Get Child Categories (Brands/Series)
     $args = array(
         'taxonomy'   => 'product_cat',
         'parent'     => $parent_id,
-        'hide_empty' => false, // Set to true on live to hide empty ones
+        'hide_empty' => false,
     );
     $terms = get_terms( $args );
 
     if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
         echo '<ul class="sub-menu">';
         foreach ( $terms as $term ) {
-            // Check if this term has children (sub-cats)
             $children = get_terms( array('taxonomy'=>'product_cat', 'parent'=>$term->term_id, 'hide_empty'=>false) );
             $has_children = !empty($children);
             
-            // Check for products if no sub-cats
             $has_products = false;
             if (!$has_children) {
                  $products = get_posts(array('post_type'=>'product', 'tax_query'=>array(array('taxonomy'=>'product_cat', 'field'=>'term_id', 'terms'=>$term->term_id)), 'posts_per_page'=>1));
@@ -55,12 +58,9 @@ function tpo_build_nav_tree( $parent_id ) {
             echo '<li class="' . $class . '">';
             echo '<a href="' . esc_url( get_term_link( $term ) ) . '">' . esc_html( $term->name ) . '</a>';
             
-            // If it has sub-categories (like Series), recurse
             if ( $has_children ) {
                 tpo_build_nav_tree( $term->term_id );
-            } 
-            // If no sub-categories, list Products directly (Flyout)
-            elseif ( $has_products ) {
+            } elseif ( $has_products ) {
                 $products = get_posts( array(
                     'post_type' => 'product',
                     'posts_per_page' => -1,
@@ -83,7 +83,6 @@ function tpo_build_nav_tree( $parent_id ) {
                     echo '</ul>';
                 }
             }
-            
             echo '</li>';
         }
         echo '</ul>';
@@ -108,7 +107,6 @@ function tpo_render_full_header() {
     
     ?>
     <div class="tpo-header-wrapper">
-        <!-- Main Header -->
         <div class="tpo-main-header-bar">
             <div class="tpo-logo-area">
                 <a href="<?php echo $home_url; ?>" class="tpo-brand-link">
@@ -136,33 +134,21 @@ function tpo_render_full_header() {
             BIG DOG AI WORKBENCH CONNECTED - DYNAMIC MODE
         </div>
 
-        <!-- DYNAMIC Secondary Navigation -->
         <div class="tpo-secondary-nav-bar">
             <div class="tpo-nav-container">
                 <ul class="tpo-nav-list">
                     <?php
-                    // Define Top Level Categories to show
                     $top_cats = array('Amplifiers', 'Subwoofers', 'Audio Speakers', 'Enclosures', 'Wiring Kits');
-                    
                     foreach ($top_cats as $cat_name) {
-                        // Find the category object
                         $term = get_term_by( 'name', $cat_name, 'product_cat' );
-                        
-                        // If category exists, render it
                         if ( $term ) {
-                            // Check for children to add arrow class
                             $children = get_terms( array('taxonomy'=>'product_cat', 'parent'=>$term->term_id, 'hide_empty'=>false) );
                             $class = !empty($children) ? 'has-children' : '';
-                            
                             echo '<li class="' . $class . '">';
                             echo '<a href="' . esc_url( get_term_link( $term ) ) . '">' . strtoupper( $term->name ) . '</a>';
-                            
-                            // MAGIC: Build the dropdown tree automatically
                             tpo_build_nav_tree( $term->term_id );
-                            
                             echo '</li>';
                         } else {
-                            // Fallback for missing categories (keep layout intact)
                              echo '<li><a href="#">' . strtoupper( $cat_name ) . '</a></li>';
                         }
                     }
@@ -185,4 +171,3 @@ function tpo_remove_astra_default_header() {
     remove_action( 'astra_mobile_header_markup', 'astra_mobile_header_markup_standard' );
 }
 add_action( 'wp', 'tpo_remove_astra_default_header', 10 );
-?>
