@@ -1,84 +1,70 @@
 <?php
 /**
- * Astra Child Theme functions and definitions
+ * Treasure Point Audio Child Theme functions and definitions
  */
 
-/**
- * Enqueue parent theme styles
- */
-function astra_child_enqueue_styles() {
-    wp_enqueue_style( 'astra-parent', get_template_directory_uri() . '/style.css' );
-    wp_enqueue_style( 'astra-child', get_stylesheet_directory_uri() . '/style.css', array('astra-parent') );
-
-    // Load Google Fonts
-    wp_enqueue_style( 'google-fonts-logo', 'https://fonts.googleapis.com/css2?family=Russo+One&family=Teko:wght@300;600&display=swap', array() );
+// 1. Enqueue Child Theme Styles
+function child_enqueue_styles() {
+    wp_enqueue_style( 'astra-child-theme-css', get_stylesheet_directory_uri() . '/style.css', array('astra-theme-css'), time(), 'all' );
 }
-add_action( 'wp_enqueue_scripts', 'astra_child_enqueue_styles' );
+add_action( 'wp_enqueue_scripts', 'child_enqueue_styles', 15 );
 
-/**
- * Register Custom Menus
- */
+// 2. Disable Astra Header Builder (Force our custom one)
+add_filter( 'astra_is_header_footer_builder_active', '__return_false' );
+
+// 3. Register Menus
 function tpo_register_menus() {
-    register_nav_menus( array( 'secondary_menu' => __( 'Secondary Header Menu', 'astra-child' ) ) );
+    register_nav_menus( array(
+        'tpo_main_menu' => __( 'Main Header Menu', 'astra-child' ),
+    ) );
 }
 add_action( 'init', 'tpo_register_menus' );
 
-
-/**
- * 🚀 EMERGENCY FORCE: This bypasses Astra Builder and ensures the AI Header runs.
- */
-add_filter( 'astra_is_header_footer_builder_active', '__return_false', 999 );
-
-
-/**
- * HELPER: Recursive function to build menu items
- */
+// 4. Helper Function: Recursive Menu Builder
 function tpo_build_nav_tree( $parent_id ) {
     $args = array(
-        'taxonomy'   => 'product_cat',
-        'parent'     => $parent_id,
-        'hide_empty' => false,
+        'taxonomy' => 'product_cat',
+        'parent' => $parent_id,
+        'hide_empty' => false, 
     );
     $terms = get_terms( $args );
 
     if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
         echo '<ul class="sub-menu">';
         foreach ( $terms as $term ) {
+            // Check for children
             $children = get_terms( array('taxonomy'=>'product_cat', 'parent'=>$term->term_id, 'hide_empty'=>false) );
-            $has_children = !empty($children);
             
-            $has_products = false;
-            if (!$has_children) {
-                 $products = get_posts(array('post_type'=>'product', 'tax_query'=>array(array('taxonomy'=>'product_cat', 'field'=>'term_id', 'terms'=>$term->term_id)), 'posts_per_page'=>1));
-                 if($products) $has_products = true;
-            }
+            // Check for products
+            $products = get_posts(array(
+                'post_type' => 'product',
+                'tax_query' => array(array('taxonomy'=>'product_cat', 'field'=>'term_id', 'terms'=>$term->term_id)),
+                'posts_per_page' => 1
+            ));
 
-            $class = ($has_children || $has_products) ? 'has-children' : '';
+            $has_children = !empty($children);
+            $has_products = !empty($products);
             
-            echo '<li class="' . $class . '">';
-            echo '<a href="' . esc_url( get_term_link( $term ) ) . '">' . esc_html( $term->name ) . '</a>';
+            $class = ($has_children || $has_products) ? 'menu-item-has-children' : '';
+            $link = get_term_link( $term );
             
+            echo '<li class="' . $class . '"><a href="' . esc_url($link) . '">' . esc_html( $term->name ) . '</a>';
+
             if ( $has_children ) {
                 tpo_build_nav_tree( $term->term_id );
             } elseif ( $has_products ) {
-                $products = get_posts( array(
+                // List products if no sub-categories
+                $product_list = get_posts( array(
                     'post_type' => 'product',
                     'posts_per_page' => -1,
-                    'tax_query' => array(
-                        array(
-                            'taxonomy' => 'product_cat',
-                            'field'    => 'term_id',
-                            'terms'    => $term->term_id,
-                        ),
-                    ),
-                    'orderby' => 'title',
-                    'order'   => 'ASC',
+                    'tax_query' => array( array( 'taxonomy' => 'product_cat', 'field' => 'term_id', 'terms' => $term->term_id ) ),
+                    'orderby' => 'title', 
+                    'order' => 'ASC'
                 ));
-                
-                if ( $products ) {
+                if($product_list) {
                     echo '<ul class="sub-menu">';
-                    foreach ( $products as $prod ) {
-                        echo '<li><a href="' . get_permalink( $prod->ID ) . '">' . $prod->post_title . '</a></li>';
+                    foreach($product_list as $prod) {
+                        echo '<li><a href="' . get_permalink($prod->ID) . '">' . $prod->post_title . '</a></li>';
                     }
                     echo '</ul>';
                 }
@@ -89,85 +75,89 @@ function tpo_build_nav_tree( $parent_id ) {
     }
 }
 
-
-/**
- * MAIN HEADER RENDER
- */
+// 5. Render The Header HTML
 function tpo_render_full_header() {
-    $home_url = esc_url( home_url( '/' ) );
-    $logo_svg_url = content_url('uploads/2025/12/tpo-logo-v3.svg');
-
-    if ( function_exists( 'wc_get_cart_url' ) ) {
-        $cart_url = esc_url( wc_get_cart_url() );
-        $account_url = esc_url( get_permalink( get_option('woocommerce_myaccount_page_id') ) );
-    } else {
-        $cart_url = '#';
-        $account_url = '#';
-    }
-    
     ?>
-    <div class="tpo-header-wrapper">
-        <div class="tpo-main-header-bar">
-            <div class="tpo-logo-area">
-                <a href="<?php echo $home_url; ?>" class="tpo-brand-link">
-                    <img src="<?php echo $logo_svg_url; ?>" alt="TP Audio" class="tpo-logo-svg">
-                </a>
-            </div>
-            <div class="tpo-search-area">
-                <form role="search" method="get" class="tpo-search-form" action="<?php echo $home_url; ?>">
-                    <input type="search" class="tpo-search-input" placeholder="Search..." name="s">
-                    <button type="submit" class="tpo-search-btn"><i class="fas fa-search"></i></button>
-                    <input type="hidden" name="post_type" value="product">
-                </form>
-            </div>
-            <div class="tpo-actions-area">
-                <a href="<?php echo $account_url; ?>" class="tpo-action-btn">
-                    <i class="fas fa-user tpo-icon"></i><span class="tpo-label">Account</span>
-                </a>
-                <a href="<?php echo $cart_url; ?>" class="tpo-action-btn">
-                    <i class="fas fa-shopping-cart tpo-icon"></i><span class="tpo-label">Cart</span>
-                </a>
+    <header id="tpo-custom-header" class="site-header">
+        <div class="tpo-top-bar">
+            <div class="container">
+                <div class="top-left">
+                     <span>📍 206 Marine Dr. Anderson, IN</span>
+                     <span>📞 (765) 555-0199</span>
+                </div>
+                <div class="top-right">
+                    <a href="<?php echo wc_get_account_endpoint_url('dashboard'); ?>">My Account</a>
+                    <a href="<?php echo wc_get_cart_url(); ?>">Cart</a>
+                </div>
             </div>
         </div>
 
-        <div style="color: #666; text-align: center; font-size: 10px; background: #000;">
-            BIG DOG AI WORKBENCH CONNECTED - DYNAMIC MODE
-        </div>
+        <div class="tpo-main-bar">
+            <div class="container">
+                <div class="logo">
+                    <a href="<?php echo home_url(); ?>">
+                       <h2 style="color:white; margin:0;">TREASURE POINT</h2>
+                    </a>
+                </div>
+                
+                <nav class="tpo-nav">
+                    <ul class="tpo-menu-root">
+                        <li><a href="<?php echo home_url(); ?>">Home</a></li>
+                        <li><a href="<?php echo home_url('/shop'); ?>">Shop All</a></li>
 
-        <div class="tpo-secondary-nav-bar">
-            <div class="tpo-nav-container">
-                <ul class="tpo-nav-list">
-                    <?php
-                    $top_cats = array('Amplifiers', 'Subwoofers', 'Audio Speakers', 'Enclosures', 'Wiring Kits');
-                    foreach ($top_cats as $cat_name) {
-                        $term = get_term_by( 'name', $cat_name, 'product_cat' );
-                        if ( $term ) {
-                            $children = get_terms( array('taxonomy'=>'product_cat', 'parent'=>$term->term_id, 'hide_empty'=>false) );
-                            $class = !empty($children) ? 'has-children' : '';
-                            echo '<li class="' . $class . '">';
-                            echo '<a href="' . esc_url( get_term_link( $term ) ) . '">' . strtoupper( $term->name ) . '</a>';
-                            tpo_build_nav_tree( $term->term_id );
-                            echo '</li>';
-                        } else {
-                             echo '<li><a href="#">' . strtoupper( $cat_name ) . '</a></li>';
+                        <?php
+                        $main_cats = array('Car Audio', 'Marine Audio', 'Safety & Security');
+                        foreach($main_cats as $cat_name) {
+                            $term = get_term_by('name', $cat_name, 'product_cat');
+                            if($term) {
+                                echo '<li class="menu-item-has-children"><a href="' . get_term_link($term) . '">' . strtoupper($cat_name) . '</a>';
+                                tpo_build_nav_tree($term->term_id);
+                                echo '</li>';
+                            }
                         }
-                    }
-                    ?>
-                </ul>
+                        ?>
+                    </ul>
+                </nav>
             </div>
         </div>
-    </div>
+    </header>
+    
+    <style>
+        /* CRITICAL CSS TO MAKE IT LOOK DECENT IMMEDIATELY */
+        #tpo-custom-header { background: #1a1a1a; color: white; font-family: sans-serif; margin-bottom: 20px;}
+        .tpo-top-bar { background: #000; font-size: 12px; padding: 5px 0; }
+        .tpo-main-bar { padding: 15px 0; border-bottom: 3px solid #ff0000; }
+        .container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
+        .tpo-nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 20px; }
+        .tpo-nav a { color: white; text-decoration: none; font-weight: bold; text-transform: uppercase; }
+        .tpo-nav li { position: relative; }
+        
+        /* Dropdowns */
+        .sub-menu { 
+            display: none; 
+            position: absolute; 
+            top: 100%; 
+            left: 0; 
+            background: #222; 
+            min-width: 200px; 
+            z-index: 999; 
+            flex-direction: column !important; 
+            border-top: 2px solid red;
+            padding:0;
+        }
+        .tpo-nav li:hover > .sub-menu { display: flex; }
+        .sub-menu li { padding: 10px; border-bottom: 1px solid #333; margin:0;}
+        .sub-menu a { font-size: 14px; text-transform: none; color: #ccc; }
+        
+        /* Grandchildren dropdowns */
+        .sub-menu .sub-menu { top: 0; left: 100%; margin-top: -2px; }
+    </style>
     <?php
 }
-add_action( 'astra_header', 'tpo_render_full_header', 5 );
 
-
-/**
- * Remove Astra's default header
- */
-function tpo_remove_astra_default_header() {
-    remove_action( 'astra_header_markup', 'astra_header_markup_page_builder' );
-    remove_action( 'astra_header_markup', 'astra_header_markup_standard' );
-    remove_action( 'astra_mobile_header_markup', 'astra_mobile_header_markup_standard' );
+// 6. Inject Header into Astra
+function tpo_switch_headers() {
+    remove_action( 'astra_header', 'astra_header_markup' );
+    add_action( 'astra_header', 'tpo_render_full_header' );
 }
-add_action( 'wp', 'tpo_remove_astra_default_header', 10 );
+add_action( 'wp', 'tpo_switch_headers' );
